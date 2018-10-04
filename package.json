@@ -16,6 +16,8 @@
     "ejs": "^2.6.1",
     "glob": "^7.1.3",
     "jake": "^8.0.18",
+    "node-sass": "^4.9.3",
+    "node-sass-glob-importer": "^5.2.0",
     "replace-ext": "^1.0.0",
     "write": "^1.0.3"
   }
