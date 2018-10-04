@@ -1,0 +1,9 @@
+{
+  "name": "scaffold-wordpress-theme-dev",
+  "version": "0.0.0",
+  "description": "Scaffold for WordPress theme creation",
+  "repository": "https://github.com/yadex205/scaffold-wordpress-theme-dev.git",
+  "author": "Kanon Kakuno <yadex205@outlook.jp>",
+  "license": "MIT",
+  "private": true
+}
