@@ -13,28 +13,34 @@ task('build', ['build:php', 'build:css']);
 
 namespace('build', () => {
   task('php', { async: true }, async () => {
-    for (let src of await promisify(glob)('./src/**/!(_)*.{php.ejs,php}')) {
-      if (src.endsWith('.php.ejs')) {
+    const sources = await promisify(glob)('./src/**/!(_)*.php.ejs');
+    for (let src of sources) {
+      try {
         const dest = resolve('./dist', relative('./src', replaceExt(src, '')));
-        const result = await ejs.renderFile(src, {}, { async: true });
-
+        const result = await ejs.renderFile(src, {}, { async: true, cache: true });
         await writeFile(dest, result.toString());
-      } else {
-        const dest = resolve('./dist', relative('./src', src));
-        await fse.copy(src, dest);
+        jake.logger.log(`[build:php] ${src} => ${dest}`)
+      } catch (error) {
+        jake.logger.error(error.toString());
       }
     }
   });
 
   task('css', { async: true }, async () => {
-    for (let src of await promisify(glob)('./src/**/!(_)*.{sass,scss}')) {
-      const dest = resolve('./dist', relative('./src', replaceExt(src, '.css')));
-      const result = await promisify(sass.render).bind(sass)({
-        file: src,
-        importer: sassGlobImporter()
-      });
+    const sources = await promisify(glob)('./src/**/!(_)*.{sass,scss}');
+    for (let src of sources) {
+      try {
+        const dest = resolve('./dist', relative('./src', replaceExt(src, '.css')));
+        const result = await promisify(sass.render).bind(sass)({
+          file: src,
+          importer: sassGlobImporter()
+        });
 
-      await writeFile(dest, result.css.toString());
+        await writeFile(dest, result.css.toString())
+        jake.logger.log(`[build:css] ${src} => ${dest}`)
+      } catch (error) {
+        jake.logger.error(error.toString());
+      }
     }
   });
 });
