@@ -24,6 +24,8 @@ services:
       - php-fpm-run:/var/run/php-fpm
       - htdocs:/usr/local/site
       - ./dist:/usr/local/site/wp-content/themes/my-theme
+    env_file:
+      - wordpress.env
 
 volumes:
   htdocs:

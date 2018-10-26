@@ -14,6 +14,10 @@ USER nginx
 WORKDIR /usr/local/site
 RUN wp core download --locale=ja
 
+ENV WORDPRESS_TITLE New WordPress site
+ENV WORDPRESS_USER user
+ENV WORDPRESS_PASSWORD pass
+
 USER root
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 ENTRYPOINT ["docker-entrypoint.sh"]
