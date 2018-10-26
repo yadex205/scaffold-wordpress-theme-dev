@@ -11,9 +11,12 @@
   },
   "scripts": {
     "clean": "rimraf ./dist/*",
+    "start": "webpack --watch",
     "build": "webpack"
   },
   "devDependencies": {
+    "browser-sync": "^2.26.3",
+    "browser-sync-webpack-plugin": "^2.2.2",
     "copy-webpack-plugin": "^4.5.4",
     "css-loader": "^1.0.0",
     "mini-css-extract-plugin": "^0.4.4",

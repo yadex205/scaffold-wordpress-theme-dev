@@ -2,6 +2,7 @@ const { resolve } = require('path');
 
 const CopyPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const nodeSassGlobImporter = require('node-sass-glob-importer');
 
 const IS_DEVELOPMENT = process.env.NODE_ENV !== 'production';
@@ -23,6 +24,12 @@ module.exports = {
     ]),
     new MiniCssExtractPlugin({
       filename: 'style.css'
+    }),
+    new BrowserSyncPlugin({
+      host: 'localhost',
+      port: '3000',
+      server: false,
+      open: false
     })
   ],
   module: {
