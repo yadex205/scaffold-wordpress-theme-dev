@@ -1,7 +1,7 @@
 FROM amazonlinux:2
 
 RUN amazon-linux-extras install -y php7.2=latest
-RUN yum install -y php-fpm mariadb
+RUN yum install -y php-fpm php-opcache mariadb
 
 COPY www.conf /etc/php-fpm.d/www.conf
 
