@@ -20,6 +20,7 @@ if [ ! -e wp-config.php ]; then
                     --admin_email=user@example.com \
                     --url=http://localhost:8000 \
                     --skip-email
+    chmod -R nginx /usr/local/site/*
 fi
 
 popd > /dev/null
