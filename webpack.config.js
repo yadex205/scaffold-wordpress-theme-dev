@@ -1,5 +1,6 @@
 const { resolve } = require('path');
 const autoPrefixer = require('autoprefixer');
+const CopyPlugin = require('copy-webpack-plugin');
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
 const nodeSassGlobImporter = require('node-sass-glob-importer');
 
@@ -54,6 +55,9 @@ module.exports = {
   plugins: [
     new MiniCSSExtractPlugin({
       filename: 'style.css'
-    })
+    }),
+    new CopyPlugin([
+      { context: resolve('./src'), from: './**/*.php' }
+    ])
   ]
 }
