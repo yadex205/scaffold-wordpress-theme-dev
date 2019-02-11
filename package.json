@@ -1,8 +1,8 @@
 {
-  "name": "scaffold-wordpress-theme-dev",
+  "name": "wordpress-site-dev-base",
   "version": "0.0.0",
-  "description": "Scaffold for WordPress theme creation",
-  "repository": "https://github.com/yadex205/scaffold-wordpress-theme-dev.git",
+  "description": "Scaffold for WordPress based website development",
+  "repository": "https://github.com/yadex205/wordpress-site-dev-base.git",
   "author": "Kanon Kakuno <yadex205@outlook.jp>",
   "license": "MIT",
   "private": true,
@@ -10,26 +10,22 @@
     "node": ">=8.0.0"
   },
   "scripts": {
-    "clean": "rimraf ./dist/*",
-    "start": "webpack --watch",
     "build": "webpack"
   },
   "devDependencies": {
-    "browser-sync": "^2.26.3",
-    "browser-sync-webpack-plugin": "^2.2.2",
-    "copy-webpack-plugin": "^4.5.4",
-    "css-loader": "^1.0.0",
-    "mini-css-extract-plugin": "^0.4.4",
-    "node-sass": "^4.9.3",
-    "node-sass-glob-importer": "^5.2.0",
-    "postcss": "^7.0.5",
-    "postcss-calc": "^7.0.1",
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.3.1",
+    "autoprefixer": "^9.4.7",
+    "babel-loader": "^8.0.5",
+    "copy-webpack-plugin": "^4.6.0",
+    "css-loader": "^2.1.0",
+    "mini-css-extract-plugin": "^0.5.0",
+    "node-sass": "^4.11.0",
+    "node-sass-glob-importer": "^5.3.0",
+    "postcss": "^7.0.14",
     "postcss-loader": "^3.0.0",
-    "postcss-preset-env": "^6.2.0",
-    "rimraf": "^2.6.2",
     "sass-loader": "^7.1.0",
-    "style-loader": "^0.23.1",
-    "webpack": "^4.23.1",
-    "webpack-cli": "^3.1.2"
+    "webpack": "^4.29.3",
+    "webpack-cli": "^3.2.3"
   }
 }

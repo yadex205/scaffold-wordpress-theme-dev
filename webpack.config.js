@@ -1,8 +1,7 @@
 const { resolve } = require('path');
-
+const autoPrefixer = require('autoprefixer');
 const CopyPlugin = require('copy-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
 const nodeSassGlobImporter = require('node-sass-glob-importer');
 
 const IS_DEVELOPMENT = process.env.NODE_ENV !== 'production';
@@ -10,53 +9,55 @@ const IS_DEVELOPMENT = process.env.NODE_ENV !== 'production';
 module.exports = {
   mode: IS_DEVELOPMENT ? 'development' : 'production',
   entry: [
-    './src/assets/js/app.js',
-    './src/assets/css/app.sass'
+    resolve('./src/assets/js/site.js'),
+    resolve('./src/assets/css/style.scss')
   ],
   output: {
-    path: resolve(__dirname, './dist'),
-    filename: 'app.js'
+    path: resolve('./dist'),
+    filename: 'site.js'
   },
-  plugins: [
-    new CopyPlugin([
-      { context: './src', from: './**/*.php' },
-      { context: './src', from: './assets/!(css|js)/**/*' }
-    ]),
-    new MiniCssExtractPlugin({
-      filename: 'style.css'
-    }),
-    new BrowserSyncPlugin({
-      host: 'localhost',
-      port: '3000',
-      server: false,
-      open: false
-    })
-  ],
   module: {
     rules: [
       {
-        test: /\.sass$/,
+        test: /\.js$/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              ['@babel/preset-env', { targets: { ie: '11' } }]
+            ]
+          }
+        }
+      },
+      {
+        test: /\.s(a|c)ss$/,
         use: [
-          MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader',
-            options: { importLoader: 2 }
-          },
+          MiniCSSExtractPlugin.loader,
+          'css-loader',
           {
             loader: 'postcss-loader',
             options: {
               plugins: [
-                require('postcss-preset-env')({ stage: 3 }),
-                require('postcss-calc')()
+                autoPrefixer()
               ]
             }
           },
           {
             loader: 'sass-loader',
-            options: { importer: nodeSassGlobImporter() }
+            options: {
+              importer: nodeSassGlobImporter()
+            }
           }
         ]
       }
     ]
-  }
+  },
+  plugins: [
+    new MiniCSSExtractPlugin({
+      filename: 'style.css'
+    }),
+    new CopyPlugin([
+      { context: resolve('./src'), from: './**/*.php' }
+    ])
+  ]
 };
