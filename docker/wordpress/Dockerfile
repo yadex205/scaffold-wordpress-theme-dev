@@ -1,7 +1,7 @@
 FROM amazonlinux:2
 
 RUN amazon-linux-extras install -y php7.2=latest
-RUN yum install -y php-fpm mariadb
+RUN yum install -y php-fpm php-opcache mariadb
 
 COPY www.conf /etc/php-fpm.d/www.conf
 
@@ -13,6 +13,10 @@ RUN chown -R nginx /usr/local/site
 USER nginx
 WORKDIR /usr/local/site
 RUN wp core download --locale=ja
+
+ENV WORDPRESS_TITLE New WordPress site
+ENV WORDPRESS_USER user
+ENV WORDPRESS_PASSWORD pass
 
 USER root
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh

@@ -3,9 +3,12 @@ version: '3.5'
 services:
   nginx:
     build: ./docker/nginx
+    depends_on:
+      - wordpress
     volumes:
       - php-fpm-run:/var/run/php-fpm
       - htdocs:/usr/local/site
+      - ./dist:/usr/local/site/wp-content/themes/my-theme
     ports:
       - "8000:80"
 
@@ -17,13 +20,14 @@ services:
   wordpress:
     build: ./docker/wordpress
     depends_on:
-      - nginx
       - mariadb
     volumes:
       - mariadb-run:/usr/local/mysql
       - php-fpm-run:/var/run/php-fpm
       - htdocs:/usr/local/site
       - ./dist:/usr/local/site/wp-content/themes/my-theme
+    env_file:
+      - wordpress.env
 
 volumes:
   htdocs:

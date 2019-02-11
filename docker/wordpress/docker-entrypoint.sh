@@ -14,12 +14,13 @@ if [ ! -e wp-config.php ]; then
     wp config create --dbname=wordpress \
                      --dbuser=root \
                      --dbhost=localhost:/usr/local/mysql/mysql.sock
-    wp core install --title=test \
-                    --admin_user=user \
-                    --admin_password=pass \
+    wp core install --title="${WORDPRESS_TITLE}" \
+                    --admin_user="${WORDPRESS_USER}" \
+                    --admin_password="${WORDPRESS_PASSWORD}" \
                     --admin_email=user@example.com \
                     --url=http://localhost:8000 \
                     --skip-email
+    chmod -R nginx /usr/local/site/*
 fi
 
 popd > /dev/null

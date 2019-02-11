@@ -60,4 +60,4 @@ module.exports = {
       { context: resolve('./src'), from: './**/*.php' }
     ])
   ]
-}
+};
